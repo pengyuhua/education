@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  mysql:
+    restart: always
+    image: mysql_pyh:v1
+    container_name: mysql_hand_test
+    networks:
+      - my_network
+    volumes:
+      - mysql:/var/lib/mysql
+    expose:
+      - "3306"
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command:
+      --character-set-server=utf8mb4
+      --lower_case_table_names=1
+      --sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO"
+
+  webapp:
+    restart: always
+    container_name: myApp
+    build: ./java/
+    networks:
+      - my_network
+    expose:
+      - "2021"
+    ports:
+      - "80:2021"
+     depends_on:
+       - mysql
+    environment:
+      MYSQL_IP: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_DRIVER_CLASSNAME: "com.mysql.jdbc.Driver"
+      MYSQL_DB_NAME: "sakial"
+      MYSQL_USER_NAME: "root"
+      MYSQL_USER_PASSWORD: "root"
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mysql:

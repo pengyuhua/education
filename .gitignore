@@ -1,0 +1,21 @@
+# gitignore file 
+.idea/
+.settings/
+
+.project
+
+java/*.jar
+
+mysql/*.sql
+
+# springboot target文件夹过滤
+springboot/.mvn/
+springboot/mvnw.cmd
+springboot/mvnw
+springboot/target/
+
+src/
+
+utils/target/
+utils/.settings/
+
