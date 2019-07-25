@@ -14,7 +14,6 @@ springboot/mvnw.cmd
 springboot/mvnw
 springboot/target/
 
-src/
 
 utils/target/
 utils/.settings/
